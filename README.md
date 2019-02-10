@@ -9,6 +9,3 @@ Small project to get used to Stencil
 
 # Refs
 Made for https://github.com/Yoobic/yoobic-hire/blob/master/stencil.md
-
-Using https://swapi.co/
-
