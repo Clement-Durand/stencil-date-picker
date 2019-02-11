@@ -1,0 +1,23 @@
+{
+  "name": "stencil-date-picke",
+  "private": true,
+  "version": "0.0.1",
+  "description": "stencil-date-picke",
+  "license": "MIT",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "stencil build",
+    "start": "stencil build --dev --watch --serve",
+    "start --es5": "stencil build --dev --watch --serve --es5",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watch"
+  },
+  "dependencies": {
+    "@ionic/core": "4.0.0"
+  },
+  "devDependencies": {
+    "@stencil/core": "0.17.0"
+  }
+}

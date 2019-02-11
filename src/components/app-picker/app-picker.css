@@ -1,0 +1,45 @@
+ion-content {
+  height: 50vh;
+}
+
+.hydrated {
+  margin: auto;
+}
+
+.inner-scroll {
+  width: 50vw;
+}
+
+
+.dates {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.dates span:nth-child(2) * {
+  font-weight: bold;
+  margin-top: 2vh;
+}
+
+.date-btn {
+  box-sizing: border-box;
+  font-size: 1.2rem;
+  background: none;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.date-btn:hover {
+  background: grey;
+}
+
+
+.pickers {
+  display: none;
+  margin-top: 5vh;
+  grid-template-columns: 50% 50%;
+}
+
