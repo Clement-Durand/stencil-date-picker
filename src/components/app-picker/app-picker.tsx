@@ -7,14 +7,17 @@
 export class AppPicker {
   isPicking = false;
 
-  showPickers(id) {
+  showPickers() {
     if(this.isPicking) {
-      document.getElementById(id).style.display = 'none';
+      document.getElementById('pickers').style.display = 'none';
+      document.getElementById('date-btn').className = 'date-btn';
     } else {
-      document.getElementById(id).style.display = 'grid';
+      document.getElementById('pickers').style.display = 'grid';
+      document.getElementById('date-btn').className += ' active';
     }
     this.isPicking = !this.isPicking;
   }
+
 
   render() {
     return [
@@ -24,11 +27,12 @@ export class AppPicker {
         </div>
         <div class="dates">
           <span>Current Date - D DD / MM / YYYY - HH:MM</span>
-          <span>Selected Date - <button class="date-btn" onClick={()=> this.showPickers('pickers')}>D DD / MM / YYYY - HH:MM</button></span>
+          <span>Selected Date - <button id="date-btn" class="date-btn" onClick={()=> this.showPickers()}>D DD / MM / YYYY - HH:MM</button></span>
         </div>
-        <div id="pickers" class="pickers">
-          <app-date-picker></app-date-picker>
-          <app-time-picker></app-time-picker>
+        {/* TODO find a way to make onClick cleaner */}
+        <div id="pickers" class="pickers" onClick={()=> this.showPickers()}>
+          <app-date-picker onClick={() => this.showPickers()}></app-date-picker>
+          <app-time-picker onClick={() => this.showPickers()}></app-time-picker>
         </div>
 
       </ion-content>

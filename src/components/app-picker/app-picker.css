@@ -1,7 +1,3 @@
-ion-content {
-  height: 50vh;
-}
-
 .hydrated {
   margin: auto;
 }
@@ -27,19 +23,47 @@ ion-content {
   box-sizing: border-box;
   font-size: 1.2rem;
   background: none;
-  border: 1px solid black;
+  border: 1px solid #3880ff;
   border-radius: 20px;
   padding: 10px;
+  box-shadow: 2px 2px 2px -1px black;
+  transition: 200ms background, 200ms color, 200ms box-shadow;
 }
 
-.date-btn:hover {
-  background: grey;
+.date-btn:hover, .active {
+  background: #3880ff;
+  color: white;
+  box-shadow: 2px 1px 4px -2px black;
 }
 
+button:focus {
+  outline: none;
+}
 
 .pickers {
   display: none;
-  margin-top: 5vh;
+  width: 80vw;
+  margin: 5vh auto;
   grid-template-columns: 50% 50%;
+  grid-gap: 1px;
 }
 
+.pickers::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, .8);
+}
+
+.pickers .hydrated {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}

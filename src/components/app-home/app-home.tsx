@@ -14,10 +14,7 @@ export class AppHome {
         </ion-toolbar>
       </ion-header>,
 
-      <ion-content padding>
-        <p>
-         Home
-        </p>
+      <ion-content>
         <app-picker></app-picker>
       </ion-content>
     ];
