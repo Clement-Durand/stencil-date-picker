@@ -7,12 +7,9 @@ import {Component} from '@stencil/core';
 export class AppDatePicker {
 
   render() {
-    const current_date = new Date();
-    const current_year = current_date.getFullYear();
-    //TODO prettify
-    const current_month = current_date.getMonth() < 10 ? '0' + current_date.getMonth() : current_date.getMonth();
-    const current_day = current_date.getDay() < 10 ? '0' + current_date.getDay() : current_date.getDay();
-    const days = {
+    const current_date = new Date().toString();
+    const current_year = current_date.substring(11,15);
+    const days_of_week = {
       'Su': 'S',
       'Mo': 'M',
       'Tu': 'T',
@@ -23,25 +20,26 @@ export class AppDatePicker {
     };
 
     const months = {
-      'January': 31,
-      'February': 28,
-      'March': 31,
-      'April': 30,
-      'May': 31,
-      'June': 30,
-      'July': 31,
-      'August': 31,
-      'September': 30,
-      'October': 31,
-      'November': 30,
-      'December': 31,
+      'Jan': {name: 'January', rank: '01', nb_days: 31},
+      'Feb': {name: 'February', rank: '02', nb_days: +current_year % 4 === 0? 29: 28},
+      'Mar': {name: 'March', rank: '03', nb_days: 31},
+      'Apr': {name: 'April', rank: '04', nb_days: 30},
+      'May': {name: 'May', rank: '05', nb_days: 31},
+      'Jun': {name: 'June', rank: '06', nb_days: 30},
+      'Jul': {name: 'July', rank: '07', nb_days: 31},
+      'Aug': {name: 'August', rank: '08', nb_days: 31},
+      'Sep': {name: 'September', rank: '09', nb_days: 30},
+      'Oct': {name: 'October', rank: '10', nb_days: 31},
+      'Nov': {name: 'November', rank: '11', nb_days: 30},
+      'Dec': {name: 'December', rank: '12', nb_days: 31},
     };
     const numbers = [1,2,3];
+//    const current_day_of_week = current_date.substring(0,3);
+    const current_month = current_date.substring(4,7);
+    const current_day = current_date.substring(8,10);
+    console.log(months['Feb'].nb_days);
 
     return [
-      <div>
-        Date picker works
-      </div>,
       <div>
         {
           numbers.map(number => {
@@ -53,26 +51,25 @@ export class AppDatePicker {
         }
       </div>,
       <div>
-        {current_day} / {current_month} / {current_year}
+        Currently selected : {current_day} / {months[current_month].rank} / {current_year}
       </div>,
-      <div>
+      <div class="days-week">
         {
-          Object.keys(days).map(day => {
+          Object.keys(days_of_week).map(day => {
             return (
               <div class="day-name">
-                <span>{days[day]}</span>
+                <span>{days_of_week[day]}</span>
               </div>
             )
           })
         }
+      </div>,
+      <div class="days-month">
         {
-          Object.keys(months).map(month => {
-            return (
-              <div class="day-name">
-                <span>{months[month]}</span>
-              </div>
-            )
-          })
+          Array.apply(0, Array(months[current_month].nb_days)).map(function (_, i) {
+            return <div class="day-rank">{i+1}</div>;
+          }
+        )
         }
       </div>
     ];
