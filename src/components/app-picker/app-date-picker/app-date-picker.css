@@ -1,8 +1,50 @@
+.currently-displayed {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.display-month-btn {
+  font-size: 1.5rem;
+  font-weight: normal;
+  background-color: white;
+}
+
+.display-month-btn:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.prev:hover {
+  animation: pulse-left .8s infinite;
+}
+.next:hover {
+  animation: pulse-right .8s infinite;
+}
+
+@keyframes pulse-left {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+}
+@keyframes pulse-right {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+
 .days-week, .days-month {
   display: grid;
   grid-template-columns: repeat(7, 50px);
   text-align: center;
-  border: 1px solid #798bd8;
+  border: .1px solid #798bd8;
   box-sizing: border-box;
 }
 

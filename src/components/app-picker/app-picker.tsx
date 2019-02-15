@@ -6,6 +6,7 @@
 })
 export class AppPicker {
   isPicking = false;
+  currentDate = new Date();
 
   showPickers() {
     if(this.isPicking) {
@@ -26,12 +27,15 @@ export class AppPicker {
           Picker
         </div>
         <div class="dates">
-          <span>Current Date - D DD / MM / YYYY - HH:MM</span>
+          {
+            console.log(this.currentDate.toJSON())
+          }
+          <span>Current Date - {this.currentDate.toDateString()}</span>
           <span>Selected Date - <button id="date-btn" class="date-btn" onClick={()=> this.showPickers()}>D DD / MM / YYYY - HH:MM</button></span>
         </div>
         {/* TODO find a way to make onClick cleaner */}
         <div id="pickers" class="pickers" onClick={()=> this.showPickers()}>
-          <app-date-picker onClick={() => this.showPickers()}></app-date-picker>
+          <app-date-picker currentDate={this.currentDate} onClick={() => this.showPickers()}></app-date-picker>
           <app-time-picker onClick={() => this.showPickers()}></app-time-picker>
         </div>
 
