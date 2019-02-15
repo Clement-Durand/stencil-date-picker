@@ -1,6 +1,8 @@
 .currently-displayed {
+  width: 25vw;
   font-weight: bold;
   display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 

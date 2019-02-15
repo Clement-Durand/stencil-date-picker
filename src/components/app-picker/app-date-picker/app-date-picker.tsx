@@ -1,4 +1,4 @@
-import {Component, Event, EventEmitter, Prop} from '@stencil/core';
+import {Component, Event, EventEmitter, Prop, State} from '@stencil/core';
 
 @Component({
   tag: 'app-date-picker',
@@ -7,6 +7,12 @@ import {Component, Event, EventEmitter, Prop} from '@stencil/core';
 export class AppDatePicker {
   @Prop()
   currentDate: Date;
+
+  @State()
+  displayedYear;
+
+  @State()
+  displayedMonth;
 
   @Event()
   dateSelected: EventEmitter;
@@ -35,17 +41,14 @@ export class AppDatePicker {
   };
   numbers = [1,2,3];
   currentYear;
-  displayedYear;
   currentMonth;
-  displayedMonth;
-
 
   _init() {
     this.currentYear = this.currentDate.toJSON().substring(0,4);
     this.currentMonth = this.currentDate.toJSON().substring(5,7);
-    this.displayedMonth = this.currentMonth;
-    this.displayedYear = this.currentYear;
-    if((this.currentYear % 4) === 0) this.months['02'].nbDays++;
+    if(this.displayedMonth == undefined) this.displayedMonth = this.currentMonth;
+    if(this.displayedYear == undefined) this.displayedYear = this.currentYear;
+    this.displayedYear % 4 === 0 ? this.months['02'].nbDays = 29 : this.months['02'].nbDays = 28;
   }
 
   /**
@@ -61,16 +64,53 @@ export class AppDatePicker {
     })
   }
 
-  _selectDate(number) {
+  _selectDate(dateNbs) {
     let date = "";
-    date += this.displayedYear+'-'+this.displayedMonth+'-';
-    date += number < 10 ? '0' + number : number;
-    this.dateSelected.emit(new Date(date).toJSON());
+    date += dateNbs.year+'-'+dateNbs.month+'-';
+    date += AppDatePicker.toMonth(dateNbs.day);
     console.log(new Date(date).toJSON());
+    //this.dateSelected.emit(new Date(date).toJSON());
+  }
+
+  _nextMonth() {
+    if(+this.displayedMonth === 12){
+      this.displayedMonth = '01';
+      +this.displayedYear--;
+    } else {
+      this.displayedMonth++;
+      this.displayedMonth+='';
+    }
+    this.displayedMonth = AppDatePicker.toMonth(this.displayedMonth);
+
+  }
+
+  _prevMonth() {
+    if(+this.displayedMonth === 1){
+      this.displayedMonth = '12';
+      +this.displayedYear--;
+    } else {
+      this.displayedMonth--;
+      this.displayedMonth+='';
+    }
+    this.displayedMonth = AppDatePicker.toMonth(this.displayedMonth);
+  }
+
+  static toMonth(number) {
+    number < 10 ? number = '0' + number : number;
+    return number;
   }
 
   render() {
     this._init();
+
+    const year = this.displayedYear;
+    const month = this.displayedMonth;
+    //TODO find a way to get this out of the scope in a better way
+    const select = this._selectDate;
+    function selectDate(day) {
+      select({day, month, year});
+    }
+
     return [
       <div>
         {
@@ -83,9 +123,9 @@ export class AppDatePicker {
         }
       </div>,
       <div class="currently-displayed">
-        <button class="display-month-btn prev" onClick={() => {console.log('prev')}}>&lt;&lt;</button>
-         {this.months[this.displayedMonth].name} {this.displayedYear}
-        <button class="display-month-btn next" onClick={() => console.log('next')}>&gt;&gt;</button>
+        <button class="display-month-btn prev" onClick={() => this._prevMonth()}>&lt;&lt;</button>
+        {this.months[this.displayedMonth].name} {this.displayedYear}
+        <button class="display-month-btn next" onClick={() => this._nextMonth()}>&gt;&gt;</button>
       </div>,
       <div class="days-week" id="days-week">
         {
@@ -101,8 +141,8 @@ export class AppDatePicker {
       </div>,
       <div class="days-month">
         {
-          Array.apply(0, Array(this.months[this.currentMonth].nbDays)).map(function (_, i) {
-            return <div id={'day-'+(i+1)} class="day-rank" onClick={() => console.log(i+1)}>{i+1}</div>;
+          Array.apply(0, Array(this.months[this.displayedMonth].nbDays)).map(function (_, i) {
+            return <div id={'day-'+(i+1)} class="day-rank" onClick={() => selectDate(i+1)}>{i+1}</div>;
             }
           )
         }

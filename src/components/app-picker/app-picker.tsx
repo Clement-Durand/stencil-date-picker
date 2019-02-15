@@ -34,9 +34,9 @@ export class AppPicker {
           <span>Selected Date - <button id="date-btn" class="date-btn" onClick={()=> this.showPickers()}>D DD / MM / YYYY - HH:MM</button></span>
         </div>
         {/* TODO find a way to make onClick cleaner */}
-        <div id="pickers" class="pickers" onClick={()=> this.showPickers()}>
-          <app-date-picker currentDate={this.currentDate} onClick={() => this.showPickers()}></app-date-picker>
-          <app-time-picker onClick={() => this.showPickers()}></app-time-picker>
+        <div id="pickers" class="pickers" onClick={()=> {}}>
+          <app-date-picker currentDate={this.currentDate} onClick={() => {}}></app-date-picker>
+          <app-time-picker onClick={() => {}}></app-time-picker>
         </div>
 
       </ion-content>
