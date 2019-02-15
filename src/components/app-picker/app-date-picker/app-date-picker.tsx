@@ -75,7 +75,7 @@ export class AppDatePicker {
   _nextMonth() {
     if(+this.displayedMonth === 12){
       this.displayedMonth = '01';
-      +this.displayedYear--;
+      +this.displayedYear++;
     } else {
       this.displayedMonth++;
       this.displayedMonth+='';
