@@ -8,15 +8,18 @@
 
 
 .dates {
+  text-align: center;
+  height: 150px;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
   font-size: 1.2rem;
 }
 
+
 .dates span:nth-child(2) * {
   font-weight: bold;
-  margin-top: 2vh;
 }
 
 .date-btn {
@@ -42,7 +45,7 @@ button:focus {
 
 .pickers {
   display: none;
-  width: 80vw;
+  width: 90vw !important;
   margin: 5vh auto;
   grid-template-columns: 50% 50%;
   grid-gap: 1px;
@@ -65,7 +68,26 @@ button:focus {
   justify-content: start;
   background: white;
   width: 100%;
-  height: 35vh;
+  min-height: 40vh !important;
   z-index: 1;
   padding: 2vh;
+}
+
+
+@supports (-ms-ime-align: auto) {
+  .pickers {
+    width: 50%;
+  }
+  .pickers::before {
+    content: none;
+  }
+  .inner-scroll {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .pickers {
+    grid-template-columns: 100%;
+  }
 }

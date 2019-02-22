@@ -1,42 +1,28 @@
-  import {Component} from '@stencil/core';
+import {Component, State} from '@stencil/core';
+import {showPickers, selectedDate} from "../../helpers/utils";
 
 @Component({
   tag: 'app-picker',
   styleUrl: 'app-picker.css'
 })
 export class AppPicker {
-  isPicking = false;
   currentDate = new Date();
 
-  showPickers() {
-    if(this.isPicking) {
-      document.getElementById('pickers').style.display = 'none';
-      document.getElementById('date-btn').className = 'date-btn';
-    } else {
-      document.getElementById('pickers').style.display = 'grid';
-      document.getElementById('date-btn').className += ' active';
-    }
-    this.isPicking = !this.isPicking;
-  }
-
+  @State()
+  update = false;
 
   render() {
     return [
       <ion-content class="picker-content">
-        <div>
-          Picker
-        </div>
         <div class="dates">
-          {
-            console.log(this.currentDate.toJSON())
-          }
           <span>Current Date - {this.currentDate.toDateString()}</span>
-          <span>Selected Date - <button id="date-btn" class="date-btn" onClick={()=> this.showPickers()}>D DD / MM / YYYY - HH:MM</button></span>
+          <span>Selected Date - <button id="date-btn" class="date-btn" onClick={()=> {showPickers();}}>{selectedDate} D DD / MM / YYYY - HH:MM</button></span>
+          {/*used to update the display because i couldnt find a way to do it automatically*/}
+          <button class="refresh date-btn" onClick={()=> {this.update = !this.update;}}>Update Display</button>
         </div>
-        {/* TODO find a way to make onClick cleaner */}
-        <div id="pickers" class="pickers" onClick={()=> {}}>
-          <app-date-picker currentDate={this.currentDate} onClick={() => {}}></app-date-picker>
-          <app-time-picker onClick={() => {}}></app-time-picker>
+        <div id="pickers" class="pickers" onLoad={()=> {console.log('load')}}>
+          <app-date-picker currentDate={this.currentDate}></app-date-picker>
+          <app-time-picker></app-time-picker>
         </div>
 
       </ion-content>

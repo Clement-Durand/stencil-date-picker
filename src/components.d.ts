@@ -21,7 +21,6 @@ export namespace Components {
   }
   interface AppDatePickerAttributes extends StencilHTMLAttributes {
     'currentDate'?: Date;
-    'onDateSelected'?: (event: CustomEvent) => void;
   }
 
   interface AppPicker {}
