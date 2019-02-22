@@ -5,7 +5,7 @@ Small project to get used to Stencil
 
 
 # The app
-Currently now working on edge and haven't checked on safari
+Date picker works on Chrome, Edge and Firefox, haven't checked for Safari
 
 # Refs
 Made for https://github.com/Yoobic/yoobic-hire/blob/master/stencil.md
